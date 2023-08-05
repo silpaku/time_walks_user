@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "92418745380",
+    "project_id": "time-walks",
+    "storage_bucket": "time-walks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92418745380:android:fa070a52d5a1ad0c7ca4b1",
+        "android_client_info": {
+          "package_name": "com.brototype.time_walks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92418745380-p10trn3dsgn189vfsj5rphfuhvqoabt8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brototype.time_walks",
+            "certificate_hash": "dc9ac623ac6127d4a149cafe37b509cacf22444d"
+          }
+        },
+        {
+          "client_id": "92418745380-5a3uf62euddqcp1p2k1aj136nvoiqd21.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe9nB44BdU07aPKFXXLilSo8N9O0vwOA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92418745380-5a3uf62euddqcp1p2k1aj136nvoiqd21.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

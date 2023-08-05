@@ -24,11 +24,12 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
           
           child: CarouselSlider(
             options: CarouselOptions(
-              height: 400,
+              height: 300,
+              
               enableInfiniteScroll: true,
               autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 3),
-              autoPlayAnimationDuration: const Duration(milliseconds: 200),
+              autoPlayInterval: const Duration(seconds: 2),
+              autoPlayAnimationDuration: const Duration(milliseconds: 180),
               autoPlayCurve: Curves.fastOutSlowIn,
               onPageChanged: (index, reason) {
                 setState(() {
@@ -64,8 +65,13 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
 class CircleAvatarsWidget extends StatelessWidget {
   final List<String> avatarImages;
   final List<String> avatarNames;
+  final Function(int) onTap;
 
-  CircleAvatarsWidget({required this.avatarImages,required this.avatarNames});
+  CircleAvatarsWidget({
+    required this.avatarImages,
+    required this.avatarNames,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -73,21 +79,25 @@ class CircleAvatarsWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: List.generate(
         avatarImages.length,
-        (index) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 26.0),
-          child: Column(
-                        children: [
-              Text(avatarNames[index]),
-              const SizedBox(height: 8),
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage(avatarImages[index]),
-              ),
-            ],
+        (index) => GestureDetector(
+          onTap: () {
+            onTap(index);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 26.0),
+            child: Column(
+              children: [
+                Text(avatarNames[index]),
+                const SizedBox(height: 8),
+                CircleAvatar(
+                  radius: 30,
+                  backgroundImage: AssetImage(avatarImages[index]),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-      
     );
   }
 }

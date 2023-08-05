@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ButtonWidget extends StatelessWidget {
   final VoidCallback onPressedButton1;
@@ -16,11 +17,20 @@ class ButtonWidget extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: onPressedButton1,
-          child:const Text('Button 1'),
+          child: Text('Button 1',style: GoogleFonts.junge(
+                  textStyle: const TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+              )),),
         ),
         ElevatedButton(
           onPressed: onPressedButton2,
-          child:const Text('Button 2'),
+          child: Text('Button 2',style: GoogleFonts.junge(
+                  textStyle: const TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+              )),)
+          ,
         ),
       ],
     );

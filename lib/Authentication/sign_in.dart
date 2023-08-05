@@ -1,8 +1,10 @@
 import 'dart:developer';
-
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:time_walks/Authentication/sign_up.dart';
 import 'package:time_walks/colors/colors.dart';
 import 'package:time_walks/commomwidgets/forgotwidget.dart';
 import 'package:time_walks/commomwidgets/textfield.dart';
@@ -16,20 +18,26 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   void handleLogin() {
-    if(_formKey.currentState!.validate()){
-       Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const BottomNavigation()),
-    );
-    }else{
+    if (_formKey.currentState!.validate()) {
+      FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text)
+          .then((value) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const BottomNavigation()),
+        );
+      }).onError((error, stackTrace) {
+        print('error');
+      });
+    } else {
       log('not validated');
     }
-   
   }
 
   // @override
@@ -38,7 +46,6 @@ class _LoginPageState extends State<LoginPage> {
   //   _passwordController.dispose();
   //   super.dispose();
   // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,22 +68,20 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 30,
             ),
-            Form( 
+            Form(
               key: _formKey,
-
               child: Column(children: [
                 MyTextField(
-                  validator: (value) {
-                     if (value!.isEmpty) {
-                    return 'Please enter your email address';
-                  } else if (!EmailValidator.validate(value)) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                    
-                  },
-                  keyboardType: TextInputType.emailAddress,
-                    controller: _usernameController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your email address';
+                      } else if (!EmailValidator.validate(value)) {
+                        return 'Please enter a valid email address';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.emailAddress,
+                    controller: _emailController,
                     hintText: 'Enter Email Address',
                     prefixIcon: Icons.email),
                 const SizedBox(
@@ -84,34 +89,38 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 MyTextField(
                   validator: (value) {
-                    if(value!.isEmpty){
-                    return 'Please enter your password';
-                  } else if (value.length < 6) {
-                    return 'Password must be at least 6 characters long';
-                  }
-                  return null;
+                    if (value!.isEmpty) {
+                      return 'Please enter your password';
+                    } else if (value.length < 6) {
+                      return 'Password must be at least 6 characters long';
+                    }
+                    return null;
                   },
-                   keyboardType: TextInputType.name,
+                  obscureText: true,
+                  keyboardType: TextInputType.name,
                   controller: _passwordController,
                   hintText: 'Enter Your Password',
                   prefixIcon: Icons.lock,
                 ),
               ]),
             ),
-             Padding(
-               padding: const EdgeInsets.only(left:200 ),
-               child: GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const ForGotte()));
+            Padding(
+              padding: const EdgeInsets.only(left: 200),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ForGotte()));
                 },
-                 child: Text(
+                child: Text(
                   'Forgot Password',
-                  
                   style: GoogleFonts.junge(
-                      textStyle: const TextStyle(color: Colors.white, fontSize: 12)),
-                           ),
-               ),
-             ),
+                      textStyle:
+                          const TextStyle(color: Colors.white, fontSize: 12)),
+                ),
+              ),
+            ),
             const SizedBox(
               height: 50,
             ),
@@ -124,10 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.black,
                   fontSize: 26,
                 )),
-                
               ),
-              
-              
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(210, 48),
                 // primary: Colors.white,
@@ -141,37 +147,79 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-             
             Text(
               'or',
               style: GoogleFonts.junge(
                   textStyle: const TextStyle(color: Colors.grey, fontSize: 26)),
             ),
-            const Center(
+             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
                     children: [
-                      Image(
-                        image: AssetImage('assets/g.JPG'),
-                        height: 30,
-                        width: 30,
+                      GestureDetector(
+                        onTap: () {
+                          loginWithGoogle(context);
+                        },
+                        child:const Image(
+                          image: AssetImage('assets/g.JPG'),
+                          height: 30,
+                          width: 30,
+                        ),
                       )
                     ],
                   )
                 ],
               ),
             ),
-            Text('Donot have account? Sign up',
-                style: GoogleFonts.junge(
-                    textStyle:
-                        const TextStyle(color: Colors.white, fontSize: 10))),
-                      const  SizedBox(height: 150,),
-            Image.asset('assets/w.JPG',height: 100,width: 350,)         
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Sign_up()));
+              },
+              child: Text('Donot have account? Sign up',
+                  style: GoogleFonts.junge(
+                      textStyle:
+                          const TextStyle(color: Colors.white, fontSize: 10))),
+            ),
+            const SizedBox(
+              height: 150,
+            ),
+            Image.asset(
+              'assets/w.JPG',
+              height: 100,
+              width: 350,
+            )
           ],
         ),
       ),
     );
   }
 }
+
+
+loginWithGoogle(BuildContext context) async {
+  try {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final googleUser = await googleSignIn.signIn();
+    if (googleUser == null) return;
+
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    await FirebaseAuth.instance.signInWithCredential(credential);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BottomNavigation(),
+      ),
+    );
+  } catch (error) {
+    print("Error during Google Sign-In: $error");
+  }
+}
+

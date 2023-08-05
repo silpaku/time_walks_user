@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:time_walks/colors/colors.dart';
+import '../address/address1.dart';
 import '../commomwidgets/cartmodel.dart';
 
 class My_cart extends StatefulWidget {
@@ -47,9 +48,13 @@ class _My_cartState extends State<My_cart> {
       body: Column(
         children: [
           Expanded(
-            child: MyListViewBuilder(items: items, images: images, icon: icon,),
-            
+            child: MyListViewBuilder(
+              items: items,
+              images: images,
+              icon: icon,
+            ),
           ),
+
           // Container(
           //   color: black,
           //   width: 50,
@@ -60,34 +65,39 @@ class _My_cartState extends State<My_cart> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                
                 width: 130,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 66, 64, 38),
+                  color: Color.fromARGB(255, 230, 156, 9),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: const Center(
                   child: Align(
-                    alignment: Alignment.topCenter,
+                    alignment: Alignment.center,
                     child: Text(
                       'Total price:₹1420',
-                      style: TextStyle(fontSize: 13,color: Colors.white),
+                      style: TextStyle(fontSize: 13, color: Colors.white),
                     ),
                   ),
                 ),
               ),
               ElevatedButton.icon(
                 onPressed: () {
-                  // Handle button press
+                  Navigator.push(context, MaterialPageRoute(builder:(context) => Select_Address()));
                 },
                 style: ElevatedButton.styleFrom(
-                  // primary: Colors.blue,
-                  backgroundColor: Colors.black
+                    // primary: Colors.blue,
+                    backgroundColor: Color.fromARGB(255, 230, 156, 9)),
+                label: Text(
+                  'CheckOut',
+                  style: GoogleFonts.junge(
+                      textStyle:
+                          const TextStyle(color: Colors.white, fontSize: 16)),
                 ),
-                label:  Text('CheckOut',style: GoogleFonts.junge(
-                textStyle: const TextStyle(color: Colors.white, fontSize: 16)),),
-                icon: const Icon(Icons.payment,color: Colors.white,),
+                icon: const Icon(
+                  Icons.payment,
+                  color: Colors.white,
+                ),
               ),
             ],
           ),

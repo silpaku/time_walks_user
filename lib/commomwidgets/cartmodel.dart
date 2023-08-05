@@ -8,7 +8,10 @@ class MyListViewBuilder extends StatelessWidget {
   final Widget? container;
 
   MyListViewBuilder(
-      {required this.items, required this.images, required this.icon,this.container});
+      {required this.items,
+      required this.images,
+      required this.icon,
+      this.container});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +25,10 @@ class MyListViewBuilder extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Color.fromARGB(255, 72, 70, 70).withOpacity(0.5),
+                color: const Color.fromARGB(255, 72, 70, 70).withOpacity(0.5),
                 spreadRadius: 2,
                 blurRadius: 5,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ],
           ),
@@ -74,17 +77,26 @@ class MyListViewBuilder extends StatelessWidget {
                     width: 90,
                     height: 30,
                     decoration: BoxDecoration(
-                        color: black, borderRadius: BorderRadius.circular(30),
+                      color: black,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.remove,
+                          color: Colors.white,
                         ),
-                        child:const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.minimize,color: Colors.white,),
-                            Text('2',style: TextStyle(color: Colors.white),),
-                             Icon(Icons.add,color: Colors.white,),
-
-                          ],
+                        Text(
+                          '2',
+                          style: TextStyle(color: Colors.white),
                         ),
+                        Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -101,3 +113,5 @@ class MyListViewBuilder extends StatelessWidget {
     );
   }
 }
+
+

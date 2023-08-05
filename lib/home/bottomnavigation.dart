@@ -16,7 +16,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
 
   final List<dynamic> tablist = [
-    const Home_page(),
+     Home_page(),
     const My_cart(),
     const Wishlist(),
     const Profile(),
