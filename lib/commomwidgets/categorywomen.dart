@@ -70,7 +70,8 @@ class _Women_categoryState extends State<Women_category> {
               id: data[index].get('id'),
               // icon: Icons.abc,
               subtext:data[index].get('subname'), 
-              price: data[index].get('price').toString(),
+              price: data[index].get('price'),
+              description: data[index].get('description'),
             );
           },
         );

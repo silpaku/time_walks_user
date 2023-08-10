@@ -36,7 +36,7 @@ class _MyListViewBuilder1State extends State<MyListViewBuilder1> {
           id=productData.get('id');
           name=productData.get('name');
           subName=productData.get('subname');
-          price=productData.get('price');
+          price = productData.get('price') ?? 199;
           imageList=List<String>.from(productData.get('image')??
               [
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfOibKCmQ1BzQ-QSNFLWlcp8BziFRksHSBrw&usqp=CAU'
@@ -58,12 +58,14 @@ class _MyListViewBuilder1State extends State<MyListViewBuilder1> {
       height: 130,
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: const Color.fromARGB(255, 72, 70, 70).withOpacity(0.5),
             spreadRadius: 2,
             blurRadius: 5,
+            
             offset: const Offset(0, 3),
           ),
         ],
@@ -80,26 +82,28 @@ class _MyListViewBuilder1State extends State<MyListViewBuilder1> {
           const SizedBox(width: 16),
            Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              
               children: [
+                SizedBox(height: 15,),
                 Text(
                   name??'Product Name',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 5),
                 Text(
                   subName ??'Data Unavailable',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     color: Colors.black,
                   ),
                 ),
                 Text(
-                 '₹ price',
-                  style: TextStyle(
+                '₹ $price',
+                  style: const TextStyle(
                     fontSize: 14,
                     color: Colors.black,
                   ),
@@ -112,7 +116,7 @@ class _MyListViewBuilder1State extends State<MyListViewBuilder1> {
             children: [
               IconButton(onPressed: (){
                 deleteWishlist(widget.id, context);
-              }, icon: Icon(CupertinoIcons.heart_slash_circle,color: Colors.black,))
+              }, icon: const Icon(CupertinoIcons.heart_slash_circle,size: 40,color: Color.fromARGB(255, 26, 26, 25),))
             ],
           ),
         ],

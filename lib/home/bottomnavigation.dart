@@ -26,8 +26,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return Scaffold(
       backgroundColor: Colors.yellow,
       bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.white,
-          color: Colors.black,
+          backgroundColor: Colors.black,
+          color: Colors.white,
+          
           animationDuration: const Duration(milliseconds: 500),
           onTap: (index) {
             setState(() {
@@ -37,19 +38,19 @@ class _BottomNavigationState extends State<BottomNavigation> {
           items: const [
             Icon(
               Icons.home,
-              color: Colors.white,
+              color: Colors.black,
             ),
             Icon(
               Icons.shopping_cart,
-              color: Colors.white,
+              color: Colors.black,
             ),
             Icon(
               Icons.favorite,
-              color: Colors.white,
+              color: Colors.black,
             ),
             Icon(
               Icons.account_circle,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ]),
       body: tablist[_currentIndex],

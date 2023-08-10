@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class CarouselSliderWidget extends StatefulWidget {
+  final List<Widget> images;
+
+  CarouselSliderWidget({required this.images});
+
   @override
   _CarouselSliderWidgetState createState() => _CarouselSliderWidgetState();
 }
@@ -9,23 +13,15 @@ class CarouselSliderWidget extends StatefulWidget {
 class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
   int _currentIndex = 0;
 
-  final List<Widget> _images = [
-    Image.asset('assets/s1.jpeg'),
-    Image.asset('assets/s2.jpeg'),
-    Image.asset('assets/s3.jpeg'),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
           width: 700,
-          
           child: CarouselSlider(
             options: CarouselOptions(
               height: 300,
-              
               enableInfiniteScroll: true,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 2),
@@ -37,14 +33,14 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                 });
               },
             ),
-            items: _images,
+            items: widget.images, // Use the images from the widget parameter
           ),
         ),
         const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: _images.map((image) {
-            int index = _images.indexOf(image);
+          children: widget.images.map((image) {
+            int index = widget.images.indexOf(image);
             return Container(
               width: 8,
               height: 8,
@@ -60,6 +56,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
     );
   }
 }
+
 
 
 class CircleAvatarsWidget extends StatelessWidget {

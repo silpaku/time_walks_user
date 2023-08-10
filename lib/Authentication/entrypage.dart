@@ -50,13 +50,13 @@ class _EntryPageState extends State<EntryPage> {
                     style: GoogleFonts.junge(
                         textStyle:const TextStyle(
                       color: Colors.black,
-                      fontSize: 26,
+                      fontSize: 24,
                     )),
                   ),
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(210, 48),
+                    minimumSize: const Size(200, 40),
                     // primary: Colors.white,
-                    fixedSize: const Size(140, 60),
+                    fixedSize: const Size(110, 50),
                     side: const BorderSide(
                       color: Colors.white,
                       width: 2.0,
@@ -73,13 +73,13 @@ class _EntryPageState extends State<EntryPage> {
                       style: GoogleFonts.junge(
                           textStyle:const TextStyle(
                         color: Colors.white,
-                        fontSize: 26,
+                        fontSize: 24,
                       ))),
                       style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(210, 48),
+                    minimumSize: const Size(200, 40),
                     // primary: Colors.white,
                     backgroundColor:const Color.fromRGBO(63, 60, 54, 1),
-                    fixedSize: const Size(140, 60),
+                    fixedSize: const Size(110, 50),
                     side: const BorderSide(
                       color: Colors.white,
                       width: 2.0,

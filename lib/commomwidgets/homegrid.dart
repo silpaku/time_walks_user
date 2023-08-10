@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:time_walks/models/functions.dart';
 
 class ImageWithText1 extends StatefulWidget {
   final List<dynamic> imagePath;
@@ -21,8 +23,25 @@ class ImageWithText1 extends StatefulWidget {
 }
 
 class _ImageWithText1State extends State<ImageWithText1> {
+  bool isAddedTWishlist = false;
+//checking funciton
+  Future<void> checkIfProductInWishlist() async {
+    String email = FirebaseAuth.instance.currentUser!.email!;
+    bool exists = await checkIfProductExistsInWishlist(email, widget.id);
+    setState(() {
+      isAddedTWishlist = exists;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkIfProductInWishlist();
+  }
+  
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       color: Colors.white,
       child: Column(

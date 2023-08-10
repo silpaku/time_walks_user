@@ -1,4 +1,4 @@
-import 'dart:developer';
+// ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,11 +7,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:time_walks/commomwidgets/categorykids.dart';
 import 'package:time_walks/commomwidgets/categorymen.dart';
 import 'package:time_walks/commomwidgets/categorywomen.dart';
-import 'package:time_walks/commomwidgets/homegrid.dart';
+import 'package:time_walks/commomwidgets/product_widget.dart';
 import '../commomwidgets/slider.dart';
 
 class Home_page extends StatefulWidget {
-  Home_page({super.key});
+  const Home_page({super.key});
 
   @override
   State<Home_page> createState() => _Home_pageState();
@@ -23,10 +23,18 @@ class _Home_pageState extends State<Home_page> {
     'assets/p5.jpg',
     'assets/p7.jpg',
   ];
+    final List<Widget> myImages = [
+    Image.asset('assets/s1.jpeg'),
+    Image.asset('assets/s2.jpeg'),
+    Image.asset('assets/s3.jpeg'),
+
+  ];
 
   final List<String> avatarNames = ['Men', 'Women', 'Kids'];
   final Stream<QuerySnapshot> _produtcsStream =
       FirebaseFirestore.instance.collection('products').snapshots();
+
+      
 
   void _onAvatarTap(int index) {
     switch (index) {
@@ -61,13 +69,27 @@ class _Home_pageState extends State<Home_page> {
                 textStyle: const TextStyle(color: Colors.white, fontSize: 18)),
           ),
         ),
-      ),
+        actions: [
+    IconButton(
+      onPressed: () {
+        // Add your logic for the first icon's action here
+      },
+      icon: const Icon(Icons.search,color: Colors.white,), // Replace 'icon1' with the desired first icon
+    ),
+    IconButton(
+      onPressed: () {
+        // Add your logic for the second icon's action here
+      },
+      icon: const Icon(Icons.shopping_bag,color: Colors.white), // Replace 'icon2' with the desired second icon
+    ),
+  ],
+),
+      
+      
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              child: CarouselSliderWidget(),
-            ),
+            CarouselSliderWidget(images: myImages),
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -114,19 +136,18 @@ class _Home_pageState extends State<Home_page> {
                     itemCount: documents.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
+                      crossAxisCount: 2,
                       crossAxisSpacing: 16.0,
                       mainAxisSpacing: 16.0,
                     ),
                     itemBuilder: (context, index) {
-                      log(documents[index].get('image'));
-                       log(documents[index].get('name'));
-                      return ImageWithText1(
+                      return ProductWidget(
                         id:documents[index].get('id') ,
-                        imagePath: documents[index].get('image'),
+                       imagePath:documents[index].get('image'),
                         text: documents[index].get('name'),
                         subtext: documents[index].get('subname'),
                         price: documents[index].get('price'),
+                        description: documents[index].get('description'),
                       );
                     },
                   );
